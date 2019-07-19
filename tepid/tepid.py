@@ -1126,7 +1126,7 @@ def discover_pe(options):
 def remove_temp(options):
     if options.keep is False:
         temp = glob('./*.temp')
-        mytempfiles = [x for x in temp if x.startswith(options.prefix)]
+        mytempfiles = [x for x in temp if x.startswith("./"+options.prefix)]
         for i in mytempfiles:
             os.remove(i)
         os.remove(options.prefix + 'disc_sorted.bam')
