@@ -1002,6 +1002,7 @@ def discover_pe(options):
     imput split reads bam file must be name sorted
     TE annotation can be gzipped
     """
+    
     print "Processing "+options.name
     print "Running paired-end mode"
     print 'Estimating mean insert size and coverage'
@@ -1123,10 +1124,12 @@ def discover_pe(options):
     remove_temp(options)
 
 
+# Fix bug by adding "./" in argument of x.startswith
+# otherwise the files in list temp are not matching
 def remove_temp(options):
     if options.keep is False:
         temp = glob('./*.temp')
-        mytempfiles = [x for x in temp if x.startswith(options.prefix)]
+        mytempfiles = [x for x in temp if x.startswith("./"+options.prefix)]
         for i in mytempfiles:
             os.remove(i)
         os.remove(options.prefix + 'disc_sorted.bam')
@@ -1155,6 +1158,7 @@ def discover_se(options):
     """
     Single-end mode
     """
+    
     print "Processing "+options.name
     print "Running single-end mode"
     cov = calc_cov(options.conc, 100000, 120000)
